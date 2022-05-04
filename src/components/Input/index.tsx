@@ -1,15 +1,17 @@
-import React, { ChangeEventHandler, LegacyRef } from 'react'
+import React, { ChangeEventHandler, LegacyRef, RefObject } from 'react'
+import { InputWrapper } from './styles'
 
 interface Props {
   value: string,
+  className?: string,
   onValueChange: ChangeEventHandler<HTMLInputElement>,
-  inputRef: LegacyRef<HTMLInputElement>
+  inputRef: RefObject<HTMLInputElement>
 }
 
-const Input: React.FunctionComponent<Props> = ({ value, onValueChange, inputRef }) =>
-  <input
+const Input: React.FunctionComponent<Props> = ({ value, className, onValueChange, inputRef }) =>
+  <InputWrapper
     type="text"
-    data-testid="Input"
+    className={className}
     value={value}
     onChange={onValueChange}
     ref={inputRef}

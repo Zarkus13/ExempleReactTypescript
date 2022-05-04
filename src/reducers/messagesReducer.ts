@@ -17,9 +17,9 @@ interface FactItem {
 
 export const fetchMessages = createAsyncThunk(
   'messages/fetchMessages',
-  () => {
+  (baseURL: string) => {
     console.log('calling fetchMessages');
-    return axios.get('https://catfact.ninja/facts?limit=10')
+    return axios.get(baseURL + '/facts?limit=10')
       .then((result) => {
         console.log(result);
 

@@ -1,19 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from 'store'
 import { fetchMessages } from 'reducers/messagesReducer'
+import { ConfigurationContext } from 'contexts/configurationContext'
 
 const TestPage: React.FunctionComponent = () => {
   const messages = useAppSelector((state) => state.messages.list);
 
+  const configuration = useContext(ConfigurationContext);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchMessages());
+    dispatch(fetchMessages(configuration.messagesAPIBaseURL));
   }, []);
 
   return (
     <div>
-      Test page !
+      <ConfigurationContext.Consumer>
+        {(conf) =>
+          "Base URL : " + conf.messagesAPIBaseURL
+        }
+      </ConfigurationContext.Consumer>
 
       <ul>
         {messages.map((message, id) =>

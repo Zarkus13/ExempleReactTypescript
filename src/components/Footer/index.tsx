@@ -4,6 +4,7 @@ import { SetState } from 'utils'
 import { useSelector } from 'react-redux'
 import { AppDispatch, RootState, useAppDispatch, useAppSelector } from 'store'
 import { addMessage } from 'reducers/messagesReducer'
+import { FooterWrapper } from './styles'
 
 interface Props {
   backgroundColor: 'red' | 'blue'
@@ -22,7 +23,7 @@ const Footer: React.FunctionComponent<Props> = ({ backgroundColor = 'red' }) => 
   }, []);
 
   return (
-    <footer style={{ backgroundColor: backgroundColor }}>
+    <FooterWrapper backgroundColor={backgroundColor}>
       <ul>
         {messages.map((message, id) =>
           <li key={id}>{message}</li>
@@ -31,12 +32,22 @@ const Footer: React.FunctionComponent<Props> = ({ backgroundColor = 'red' }) => 
 
       <Input
         value={message}
+        className="footer-input"
         onValueChange={(event) => onMessageChange(event, setMessage)}
         inputRef={inputRef}
       />
 
+      <Input
+        value={message}
+        className="footer-input"
+        onValueChange={(event) => onMessageChange(event, setMessage)}
+        inputRef={inputRef}
+      />
+
+      <input type="text" value="dernier input" />
+
       <button onClick={() => onAddMessage(message, dispatch)}>Add Message !</button>
-    </footer>
+    </FooterWrapper>
   )
 };
 

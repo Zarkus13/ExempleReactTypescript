@@ -4,6 +4,7 @@ import App from './App';
 import { Provider } from 'react-redux'
 import store from 'store'
 import { BrowserRouter } from 'react-router-dom'
+import { ConfigurationContext } from 'contexts/configurationContext'
 
 describe('renders correctly the <App /> component', () => {
 
@@ -38,11 +39,13 @@ describe('renders correctly the <App /> component', () => {
 
   it ('should give focus to text input in footer component', () => {
     render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
+      <ConfigurationContext.Provider value={{ messagesAPIBaseURL: 'testUrl' }}>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
+      </ConfigurationContext.Provider>
     );
 
     const inputText = screen.getByTestId('Input');
