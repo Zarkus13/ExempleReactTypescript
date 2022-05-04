@@ -42,6 +42,15 @@ const messagesSlice = createSlice({
         ...state,
         list: messages
       };
+    },
+    removeMessage: (state, action: PayloadAction<number>) => {
+      const firstPart = state.list.slice(0, action.payload);
+      const secondPart = state.list.slice(action.payload + 1, state.list.length);
+
+      return {
+        ...state,
+        list: firstPart.concat(secondPart)
+      };
     }
   },
   extraReducers: (builder) => {
@@ -56,6 +65,6 @@ const messagesSlice = createSlice({
   }
 });
 
-export const { addMessage } = messagesSlice.actions;
+export const { addMessage, removeMessage } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

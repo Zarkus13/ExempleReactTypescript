@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import Input from 'components/Input'
 import { SetState } from 'utils'
 import { useSelector } from 'react-redux'
@@ -16,6 +16,10 @@ const Footer: React.FunctionComponent<Props> = ({ backgroundColor = 'red' }) => 
   const dispatch = useAppDispatch();
 
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef?.current?.focus()
+  }, []);
 
   return (
     <footer style={{ backgroundColor: backgroundColor }}>

@@ -9,6 +9,7 @@ interface Props {
 const Input: React.FunctionComponent<Props> = ({ value, onValueChange, inputRef }) =>
   <input
     type="text"
+    data-testid="Input"
     value={value}
     onChange={onValueChange}
     ref={inputRef}
