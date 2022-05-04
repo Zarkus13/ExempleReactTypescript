@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 interface State {
   list: string[]
@@ -8,6 +9,24 @@ const initialState: State = {
   // list: JSON.parse(localStorage.getItem('messages') || '[]')
   list: []
 };
+
+interface FactItem {
+  fact: string,
+  length: number
+}
+
+export const fetchMessages = createAsyncThunk(
+  'messages/fetchMessages',
+  () => {
+    console.log('calling fetchMessages');
+    return axios.get('https://catfact.ninja/facts?limit=10')
+      .then((result) => {
+        console.log(result);
+
+        return result.data.data.map((factItem: FactItem) => factItem.fact);
+      });
+  }
+);
 
 const messagesSlice = createSlice({
   name: 'message',
@@ -20,9 +39,20 @@ const messagesSlice = createSlice({
       // localStorage.setItem('messages', JSON.stringify(messages));
 
       return {
+        ...state,
         list: messages
-      }
+      };
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchMessages.fulfilled, (state, action: PayloadAction<string[]>) => {
+      console.log('fetchMessages fulfilled');
+
+      return {
+        ...state,
+        list: action.payload
+      };
+    })
   }
 });
 

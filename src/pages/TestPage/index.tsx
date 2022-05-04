@@ -1,8 +1,15 @@
-import React from 'react';
-import { useAppSelector } from 'store'
+import React, { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from 'store'
+import { fetchMessages } from 'reducers/messagesReducer'
 
 const TestPage: React.FunctionComponent = () => {
   const messages = useAppSelector((state) => state.messages.list);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchMessages());
+  }, []);
 
   return (
     <div>
